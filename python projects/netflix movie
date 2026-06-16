@@ -1,1 +1,492 @@
+# 🎬 Netflix Recommendation System
+
+## 📌 Project Overview
+
+This project develops a large-scale Netflix Recommendation System using the Netflix Prize Dataset containing over 100 million ratings. The objective is to predict how users would rate movies they have not yet watched and generate personalized movie recommendations. The project explores collaborative filtering, similarity-based recommendation techniques, matrix factorization, feature engineering, and machine learning models to improve recommendation accuracy.
+
+---
+
+# 🎯 Business Problem
+
+Netflix relies heavily on recommendation systems to improve user engagement and viewing experience. The challenge is to accurately predict ratings for unseen movies based on historical user interactions. Better predictions lead to more relevant recommendations, increased customer satisfaction, and improved business performance.
+
+---
+
+# 📂 Dataset Information
+
+The Netflix Prize Dataset consists of anonymous user ratings collected over several years.
+
+| Metric        | Value       |
+| ------------- | ----------- |
+| Total Ratings | 100,480,507 |
+| Total Users   | 480,189     |
+| Total Movies  | 17,770      |
+| Rating Scale  | 1–5 Stars   |
+
+Files Used:
+
+* combined_data_1.txt
+* combined_data_2.txt
+* combined_data_3.txt
+* combined_data_4.txt
+* movie_titles.csv
+
+---
+
+# ⚙️ Technologies Used
+
+* Python
+* Pandas
+* NumPy
+* Scikit-Learn
+* SciPy Sparse Matrices
+* Surprise Library
+* XGBoost
+* Matplotlib
+* Seaborn
+
+---
+
+# 🔄 Project Workflow
+
+```text
+Netflix Dataset
+      │
+      ▼
+Data Preprocessing
+      │
+      ▼
+Exploratory Data Analysis
+      │
+      ▼
+Train-Test Split
+      │
+      ▼
+Sparse Matrix Creation
+      │
+      ▼
+User-User Similarity
+      │
+      ▼
+Movie-Movie Similarity
+      │
+      ▼
+SVD Dimensionality Reduction
+      │
+      ▼
+Feature Engineering
+      │
+      ▼
+Baseline, SVD & XGBoost Models
+      │
+      ▼
+RMSE & MAPE Evaluation
+```
+
+---
+
+# 🧹 Data Preprocessing
+
+The original Netflix data was stored in a hierarchical format where movie IDs were followed by user ratings. The data was converted into a structured tabular format:
+
+```text
+MovieID, UserID, Rating, Date
+```
+
+Processing Steps:
+
+* Merged all four dataset files.
+* Converted raw text data into CSV format.
+* Parsed timestamps.
+* Sorted records chronologically.
+* Verified missing values.
+* Checked duplicates.
+
+Results:
+
+✅ No missing values found
+
+✅ No duplicate entries found
+
+---
+
+# 📊 Exploratory Data Analysis
+
+## Rating Distribution
+
+Users tend to provide higher ratings, with rating 4 being the most frequent rating across the dataset.
+
+```text
+Rating Distribution
+
+1 ★  ███
+2 ★  ███████
+3 ★  ███████████████
+4 ★  ██████████████████████
+5 ★  ██████████████
+```
+
+Observation:
+
+* Majority of ratings are between 3 and 5.
+* Users generally rate movies positively.
+
+---
+
+## Ratings Over Time
+
+Monthly rating trends show growing user engagement throughout the dataset period.
+
+Observation:
+
+* Rating activity increased steadily over time.
+* More users joined Netflix and became active raters.
+
+---
+
+## User Activity Analysis
+
+| Statistic            | Value  |
+| -------------------- | ------ |
+| Mean Ratings/User    | 198    |
+| Median Ratings/User  | 89     |
+| Maximum Ratings/User | 17,112 |
+
+Observation:
+
+* Most users rate relatively few movies.
+* A small number of highly active users contribute a large portion of ratings.
+
+### User Rating Quantiles
+
+| Percentile | Ratings |
+| ---------- | ------- |
+| 25%        | 34      |
+| 50%        | 89      |
+| 75%        | 245     |
+| 90%        | 520     |
+| 95%        | 749     |
+| 100%       | 17,112  |
+
+---
+
+## Movie Popularity Analysis
+
+Movie rating counts are highly skewed.
+
+Observation:
+
+* A small number of blockbuster movies receive massive attention.
+* Most movies receive only a few hundred ratings.
+
+```text
+Movie Popularity
+
+Popular Movies      ████████████████████
+Average Movies      ████████
+Long Tail Movies    ██
+```
+
+---
+
+## Weekly Rating Analysis
+
+Average ratings by weekday:
+
+| Day       | Avg Rating |
+| --------- | ---------- |
+| Monday    | 3.577      |
+| Tuesday   | 3.574      |
+| Wednesday | 3.584      |
+| Thursday  | 3.582      |
+| Friday    | 3.585      |
+| Saturday  | 3.592      |
+| Sunday    | 3.594      |
+
+Observation:
+
+User rating behavior remains relatively stable across the week.
+
+---
+
+# 🔲 Sparse Matrix Representation
+
+The recommendation problem was represented using a User-Movie Sparse Matrix.
+
+```text
+Rows    → Users
+Columns → Movies
+Values  → Ratings
+```
+
+Matrix Size:
+
+```text
+2,649,430 × 17,771
+```
+
+Sparsity Results:
+
+| Dataset | Sparsity |
+| ------- | -------- |
+| Train   | 99.83%   |
+| Test    | 99.96%   |
+
+Observation:
+
+Users interact with only a tiny fraction of available movies, making the dataset extremely sparse.
+
+---
+
+# ❄️ Cold Start Problem
+
+Users and movies appearing only in the test set create cold-start challenges.
+
+| Entity     | Count  |
+| ---------- | ------ |
+| New Users  | 75,148 |
+| New Movies | 346    |
+
+Observation:
+
+* 15.65% of users were unseen during training.
+* 1.95% of movies were unseen during training.
+
+---
+
+# 🤝 User-User Collaborative Filtering
+
+Cosine similarity was used to identify users with similar preferences.
+
+Formula:
+
+```text
+Similarity(A,B)
+=
+(A · B) / (||A|| ||B||)
+```
+
+Challenge:
+
+Computing similarities across 405,041 users is computationally expensive and not practical for large-scale deployment.
+
+---
+
+# 🎥 Movie-Movie Collaborative Filtering
+
+Movie similarity was computed using cosine similarity.
+
+Example:
+
+Movie Selected:
+
+```text
+Vampire Journals
+```
+
+Top Similar Movies:
+
+1. Modern Vampires
+2. Subspecies 4: Bloodstorm
+3. To Sleep With a Vampire
+4. Dracula Rising
+5. Vampirella
+6. Club Vampire
+7. Dracula II: Ascension
+8. Vampires: Los Muertos
+
+Observation:
+
+Movie similarity effectively captures relationships between movies based on user preferences.
+
+---
+
+# 📉 Dimensionality Reduction Using SVD
+
+To address computational complexity, Truncated SVD was applied.
+
+Configuration:
+
+```text
+500 Latent Factors
+```
+
+Variance Explained:
+
+| Factors | Variance Explained |
+| ------- | ------------------ |
+| 1       | 23%                |
+| 20      | 38%                |
+| 60      | 44%                |
+| 100     | 47%                |
+| 200     | 53%                |
+| 300     | 57%                |
+| 400     | 61%                |
+| 500     | 64%                |
+
+Observation:
+
+500 latent factors provide a strong balance between computational efficiency and information retention.
+
+---
+
+# 🏗️ Feature Engineering
+
+The recommendation problem was transformed into a supervised learning problem.
+
+Generated Features:
+
+| Feature   | Description               |
+| --------- | ------------------------- |
+| GAvg      | Global Average Rating     |
+| sur1-sur5 | Top Similar User Ratings  |
+| smr1-smr5 | Top Similar Movie Ratings |
+| UAvg      | User Average Rating       |
+| MAvg      | Movie Average Rating      |
+
+Total Features:
+
+```text
+13 Features
+```
+
+Feature Pipeline:
+
+```text
+User + Movie
+      │
+      ▼
+Global Average
+      │
+      ▼
+Top 5 Similar User Ratings
+      │
+      ▼
+Top 5 Similar Movie Ratings
+      │
+      ▼
+User Average
+      │
+      ▼
+Movie Average
+      │
+      ▼
+Feature Vector
+      │
+      ▼
+XGBoost Model
+```
+
+---
+
+#  Machine Learning Models
+
+## Baseline Model
+
+Prediction Formula:
+
+```text
+Prediction
+=
+Global Average
++ User Bias
++ Movie Bias
+```
+
+Used as a benchmark recommendation model.
+
+---
+
+## Singular Value Decomposition (SVD)
+
+SVD captures hidden relationships between users and movies through latent factors.
+
+Benefits:
+
+* Handles sparse data.
+* Learns hidden user preferences.
+* Improves recommendation quality.
+
+---
+
+## XGBoost Regressor
+
+A gradient boosting model trained on engineered recommendation features.
+
+Input:
+
+* Global averages
+* Similar user ratings
+* Similar movie ratings
+* User averages
+* Movie averages
+
+Output:
+
+Predicted movie rating.
+
+---
+
+# 📏 Evaluation Metrics
+
+## RMSE
+
+Root Mean Squared Error
+
+Measures the difference between actual and predicted ratings.
+
+Lower values indicate better performance.
+
+## MAPE
+
+Mean Absolute Percentage Error
+
+Measures percentage prediction error.
+
+Lower values indicate better accuracy.
+
+---
+
+#  Model Performance
+
+### XGBoost Results
+
+| Metric | Value  |
+| ------ | ------ |
+| RMSE   | 1.076  |
+| MAPE   | 34.50% |
+
+Observation:
+
+XGBoost achieved the strongest predictive performance among tested models.
+
+---
+
+# 💡 Key Findings
+
+* Netflix data is extremely sparse.
+* Movie-Movie Collaborative Filtering scales better than User-User Filtering.
+* SVD effectively captures latent user preferences.
+* Feature engineering significantly improves model accuracy.
+* XGBoost provides strong recommendation performance.
+* Cold-start users remain one of the primary challenges.
+
+---
+
+#  Future Improvements
+
+Potential enhancements include:
+
+* Neural Collaborative Filtering
+* Deep Learning Recommendation Models
+* Autoencoders
+* Hybrid Recommendation Systems
+* Real-Time Recommendation Pipelines
+* Spark-Based Distributed Training
+
+---
+
+# Conclusion
+
+This project successfully developed an end-to-end Netflix Recommendation System using over 100 million user-movie interactions. Through extensive preprocessing, exploratory data analysis, sparse matrix modeling, collaborative filtering, dimensionality reduction, feature engineering, and machine learning techniques, the system effectively predicts movie ratings and generates personalized recommendations. The results demonstrate how recommendation algorithms can be scaled to real-world datasets while addressing challenges such as sparsity and cold-start problems.
 
