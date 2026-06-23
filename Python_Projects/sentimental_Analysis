@@ -1,1 +1,172 @@
+🎬 IMDb Movie Review Sentiment Analysis using NLP & Machine Learning
+📌 Project Overview
 
+Developed an end-to-end Sentiment Analysis system to classify IMDb movie reviews as Positive 😊 or Negative 😞 using Natural Language Processing (NLP) and Machine Learning techniques. The project involved data cleaning, exploratory data analysis, feature engineering, model building, and performance evaluation to accurately predict customer sentiment from textual reviews.
+
+📊 Dataset Information
+Dataset: IMDb Movie Reviews Dataset
+Total Records: 50,000 Reviews
+Target Variable: Sentiment
+Classes: Positive & Negative
+Problem Type: Binary Text Classification
+🧹 Data Cleaning & Preprocessing
+
+To improve model performance and ensure data quality, the following preprocessing steps were performed:
+
+✅ Removed duplicate reviews
+
+✅ Checked and handled missing values
+
+✅ Converted sentiment labels:
+
+Positive → 1
+Negative → 0
+
+✅ Converted text to lowercase
+
+✅ Removed HTML tags and special characters
+
+✅ Removed punctuation and stopwords
+
+✅ Performed tokenization and lemmatization
+
+✅ Created a clean text corpus for machine learning
+
+📈 Exploratory Data Analysis (EDA)
+Key Findings
+
+📌 Dataset contains an almost equal number of positive and negative reviews.
+
+📌 Positive reviews frequently contained words such as:
+
+Great
+Amazing
+Excellent
+Best
+
+📌 Negative reviews frequently contained words such as:
+
+Bad
+Boring
+Worst
+Waste
+Visualizations Created
+
+📊 Sentiment Distribution Chart
+
+📊 Review Length Distribution
+
+☁️ Overall Word Cloud
+
+☁️ Positive Review Word Cloud
+
+☁️ Negative Review Word Cloud
+
+📊 Confusion Matrix Heatmap
+
+📊 Model Comparison Charts
+
+⚙️ Feature Engineering
+
+Used TF-IDF (Term Frequency–Inverse Document Frequency) Vectorization to transform text reviews into numerical feature vectors.
+
+Benefits
+
+✅ Captures important keywords
+
+✅ Reduces noise from common words
+
+✅ Improves classification performance
+
+✅ Suitable for high-dimensional text data
+
+🤖 Machine Learning Models Implemented
+1️⃣ Logistic Regression
+Fast and efficient
+Excellent baseline model for text classification
+Strong generalization capability
+2️⃣ Multinomial Naive Bayes
+Designed specifically for text classification
+Performs well with TF-IDF features
+Computationally efficient
+3️⃣ Random Forest Classifier
+Ensemble learning approach
+Captures complex patterns in data
+Reduces overfitting
+📊 Model Performance
+
+🏆 Best Performing Model: Logistic Regression
+
+Results Achieved
+
+✅ Accuracy: ~89%
+
+✅ Precision: ~89%
+
+✅ Recall: ~89%
+
+✅ F1 Score: ~89%
+
+These results demonstrate the effectiveness of NLP preprocessing and TF-IDF feature extraction for sentiment classification tasks.
+
+📉 Evaluation Metrics Used
+Accuracy Score
+Precision Score
+Recall Score
+F1 Score
+Confusion Matrix
+Classification Report
+
+The models were evaluated on unseen test data to measure prediction performance and generalization capability.
+
+🚀 Business Applications
+
+🎥 Movie Review Analysis
+
+🛒 E-Commerce Product Review Classification
+
+📱 Social Media Sentiment Monitoring
+
+📞 Customer Feedback Analysis
+
+📈 Brand Reputation Management
+
+💬 Automated Opinion Mining Systems
+
+🛠️ Technologies Used
+
+Programming Language: Python
+
+Libraries: Pandas, NumPy, NLTK, Scikit-Learn, Matplotlib, Seaborn, WordCloud
+
+Machine Learning: Logistic Regression, Naive Bayes, Random Forest
+
+NLP Techniques: Text Cleaning, Tokenization, Lemmatization, TF-IDF Vectorization
+
+🎯 Project Outcomes
+
+✅ Processed and analyzed 50,000 movie reviews
+
+✅ Built a complete NLP pipeline for text preprocessing
+
+✅ Generated meaningful visualizations and insights
+
+✅ Developed multiple machine learning models
+
+✅ Achieved approximately 89% sentiment classification accuracy
+
+✅ Demonstrated practical application of NLP in real-world business scenarios
+
+📷 Recommended GitHub Screenshots
+Dataset Overview
+Data Cleaning Process
+Missing Values Check
+Sentiment Distribution Chart
+Word Cloud Visualization
+Positive Word Cloud
+Negative Word Cloud
+TF-IDF Feature Extraction
+Model Accuracy Comparison
+Confusion Matrix Heatmap
+
+⭐ This project demonstrates strong skills in Data Cleaning, Exploratory Data Analysis (EDA), Natural Language Processing (NLP), Machine Learning, and Data Visualization using Python.
