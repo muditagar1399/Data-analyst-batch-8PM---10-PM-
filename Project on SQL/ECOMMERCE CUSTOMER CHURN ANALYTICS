@@ -1,0 +1,107 @@
+# 🛒 E-Commerce Customer Churn Analysis using SQL
+
+## 📌 Project Overview
+
+This project focuses on analyzing customer churn behavior in an e-commerce business using SQL. The goal was to identify high-value customers, understand churn patterns, analyze customer demographics, and generate business insights using advanced SQL concepts such as Subqueries, Window Functions, CTEs, and Views.
+
+## 🎯 Objectives
+
+✅ Identify customers with high Lifetime Value (LTV)
+✅ Analyze churn trends across countries and genders
+✅ Compare customer behavior using ranking techniques
+✅ Segment customers into value-based groups
+✅ Handle missing data effectively
+✅ Improve query readability and performance using CTEs and Views
+
+## 🛠️ SQL Concepts Used
+
+### 🔹 Subqueries
+
+Used nested queries to:
+
+* Find customers above average Lifetime Value 💰
+* Identify customers with maximum purchases 🛍️
+* Detect countries with above-average customer counts 🌍
+* Find customers above average age 👥
+* Identify minimum credit balance customers 💳
+
+### 🔹 Window Functions
+
+Applied advanced SQL analytical functions:
+
+📊 **ROW_NUMBER()** – Assigned unique row numbers within countries.
+
+🏆 **RANK() & DENSE_RANK()** – Ranked customers based on Lifetime Value.
+
+📈 **AVG(), SUM(), MIN(), MAX() OVER()** – Calculated country-wise customer metrics without grouping.
+
+⏮️ **LAG()** – Compared current purchases with previous customer records.
+
+⏭️ **LEAD()** – Compared current purchases with future records.
+
+📉 **PERCENT_RANK()** – Calculated customer percentile rankings.
+
+🎯 **NTILE(4)** – Segmented customers into quartiles based on Lifetime Value.
+
+🥇 **FIRST_VALUE() & LAST_VALUE()** – Compared customers with top and bottom performers.
+
+### 🔹 Data Cleaning
+
+🧹 Used **COALESCE()** to replace NULL values and improve data quality.
+
+### 🔹 Common Table Expressions (CTEs)
+
+Created reusable temporary result sets for:
+
+* Average Lifetime Value analysis
+* Gender-wise churn analysis
+
+### 🔹 Views
+
+📋 Built SQL Views to:
+
+* Store churn metrics
+* Simplify reporting and dashboard integration
+
+## 📊 Key Business Insights
+
+💰 Identified customers generating higher-than-average Lifetime Value.
+
+🛍️ Discovered the most loyal customers based on total purchases.
+
+🌍 Compared customer distribution across countries.
+
+👨‍💼👩‍💼 Analyzed churn behavior by gender.
+
+📈 Ranked customers according to business value.
+
+🎯 Segmented customers into quartiles for targeted marketing campaigns.
+
+⚠️ Detected and handled missing values to improve reporting accuracy.
+
+## 🚀 Project Outcomes
+
+✔ Improved customer segmentation strategy
+
+✔ Enabled identification of high-value customers
+
+✔ Generated churn-focused business insights
+
+✔ Demonstrated advanced SQL analytical capabilities
+
+✔ Utilized 15+ SQL analytical techniques including Subqueries, Window Functions, CTEs, and Views
+
+## 🏷️ Skills Demonstrated
+
+🔹 SQL Server
+🔹 Data Analysis
+🔹 Customer Churn Analytics
+🔹 Window Functions
+🔹 Subqueries
+🔹 CTEs
+🔹 Views
+🔹 Data Cleaning
+🔹 Business Intelligence
+🔹 Customer Segmentation
+
+⭐ This project showcases how SQL can be used to transform raw customer data into actionable business insights for reducing churn and improving customer retention.
